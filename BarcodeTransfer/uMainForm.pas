@@ -11,7 +11,7 @@ uses
   FMX.Platform, FMX.Layouts, IPPeerClient, IPPeerServer, System.Tether.Manager,
   System.Tether.AppProfile,
   FMX.Barcode.DROID,
-  FMX.Barcode.IOS;
+  FMX.Barcode.IOS, FMX.StdActns, FMX.MediaLibrary.Actions;
 
 type
   TMainForm = class(TForm)
@@ -19,28 +19,34 @@ type
     imgCamera: TImage;
     butStart: TButton;
     butStop: TButton;
-    butShare: TButton;
+    butSend: TButton;
     CameraComponent1: TCameraComponent;
     TetheringManager1: TTetheringManager;
     TetheringAppProfile1: TTetheringAppProfile;
-    Timer1: TTimer;
+    timAutoConnect: TTimer;
     StyleBook1: TStyleBook;
     LayoutBottom: TLayout;
     lblScanStatus: TLabel;
     edtResult: TEdit;
     chkLibrary: TCheckBox;
+    butShare: TButton;
+    ActionList1: TActionList;
+    ShowShareSheetAction1: TShowShareSheetAction;
+    chkAutoSend: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure butStartClick(Sender: TObject);
     procedure butStopClick(Sender: TObject);
     procedure CameraComponent1SampleBufferReady(Sender: TObject;
       const ATime: TMediaTime);
-    procedure Timer1Timer(Sender: TObject);
+    procedure timAutoConnectTimer(Sender: TObject);
     procedure TetheringManager1EndAutoConnect(Sender: TObject);
-    procedure butShareClick(Sender: TObject);
+    procedure butSendClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
+    procedure edtResultChange(Sender: TObject);
+    procedure ShowShareSheetAction1BeforeExecute(Sender: TObject);
   private
     { Private declarations }
 
@@ -85,7 +91,7 @@ begin
   end;
 end;
 
-procedure TMainForm.butShareClick(Sender: TObject);
+procedure TMainForm.butSendClick(Sender: TObject);
 begin
   TetheringAppProfile1.SendString(TetheringManager1.RemoteProfiles.First,
     'Barcode', edtResult.Text);
@@ -131,6 +137,14 @@ procedure TMainForm.CameraComponent1SampleBufferReady(Sender: TObject;
   const ATime: TMediaTime);
 begin
   TThread.Synchronize(TThread.CurrentThread, GetImage);
+end;
+
+procedure TMainForm.edtResultChange(Sender: TObject);
+begin
+  ShowShareSheetAction1.Enabled := not edtResult.Text.IsEmpty;
+  if not edtResult.Text.IsEmpty then
+    if butSend.Enabled then
+      butSendClick(Self);
 end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -262,20 +276,25 @@ begin
     fInProgress := False;
 end;
 
+procedure TMainForm.ShowShareSheetAction1BeforeExecute(Sender: TObject);
+begin
+  ShowShareSheetAction1.TextMessage := edtResult.Text;
+end;
+
 procedure TMainForm.TetheringManager1EndAutoConnect(Sender: TObject);
 begin
   try
-    butShare.Enabled := TetheringAppProfile1.Connect
+    butSend.Enabled := TetheringAppProfile1.Connect
       (TetheringManager1.RemoteProfiles.First);
   except
     on E: Exception do
-      butShare.Enabled := False;
+      butSend.Enabled := False;
   end;
 end;
 
-procedure TMainForm.Timer1Timer(Sender: TObject);
+procedure TMainForm.timAutoConnectTimer(Sender: TObject);
 begin
-  if not butShare.Enabled then
+  if not butSend.Enabled then
     TetheringManager1.AutoConnect;
 end;
 

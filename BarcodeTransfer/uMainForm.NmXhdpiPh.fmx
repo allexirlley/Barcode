@@ -5,6 +5,9 @@ inherited MainForm_NmXhdpiPh: TMainForm_NmXhdpiPh
   DesignerMasterStyle = 0
   inherited ToolBar1: TToolBar
     Size.Width = 400.000000000000000000
+    inherited butSend: TButton
+      Position.X = 294.000000000000000000
+    end
     inherited butShare: TButton
       Position.X = 347.000000000000000000
     end
@@ -35350,11 +35353,14 @@ inherited MainForm_NmXhdpiPh: TMainForm_NmXhdpiPh
       Margins.Left = 5.000000000000000000
       Margins.Right = 5.000000000000000000
       Margins.Bottom = 5.000000000000000000
-      Position.X = 130.000000000000000000
+      Position.X = 230.000000000000000000
       Size.Height = 20.000000000000000000
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
     inherited chkLibrary: TCheckBox
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+    end
+    inherited chkAutoSend: TCheckBox
       TextSettings.Font.StyleExt = {00070000000000000004000000}
     end
   end

@@ -13,14 +13,16 @@ type
   TMainForm = class(TForm)
     ToolBar1: TToolBar;
     edtResult: TEdit;
-    Label1: TLabel;
+    lblTitle: TLabel;
     TetheringManager1: TTetheringManager;
     TetheringAppProfile1: TTetheringAppProfile;
     ClearEditButton1: TClearEditButton;
     StyleBook1: TStyleBook;
+    butExit: TButton;
     procedure TetheringAppProfile1ResourceReceived(const Sender: TObject;
       const AResource: TRemoteResource);
     procedure ClearEditButton1Click(Sender: TObject);
+    procedure butExitClick(Sender: TObject);
   private
     { Private declarations }
     procedure SetClipboard(s: string);
@@ -35,8 +37,14 @@ implementation
 
 {$R *.fmx}
 {$R *.Macintosh.fmx MACOS}
+{$R *.Windows.fmx MSWINDOWS}
 
 uses FMX.Platform;
+
+procedure TMainForm.butExitClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
 
 procedure TMainForm.ClearEditButton1Click(Sender: TObject);
 begin

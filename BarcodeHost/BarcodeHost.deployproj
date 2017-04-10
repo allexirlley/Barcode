@@ -61,7 +61,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="BarcodeHost.icns" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="$(BDS)\bin\delphi_PROJECTICNS.icns" Condition="'$(Config)'=='Release'">
             <RemoteDir>BarcodeHost.app\Contents\Resources\</RemoteDir>
             <RemoteName>BarcodeHost.icns</RemoteName>
             <DeployClass>ProjectOSXResource</DeployClass>
@@ -98,7 +98,7 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\delphi_PROJECTICNS.icns" Condition="'$(Config)'=='Release'">
+        <DeployFile Include="BarcodeHost.icns" Condition="'$(Config)'=='Release'">
             <RemoteDir>BarcodeHost.app\Contents\Resources\</RemoteDir>
             <RemoteName>BarcodeHost.icns</RemoteName>
             <DeployClass>ProjectOSXResource</DeployClass>
