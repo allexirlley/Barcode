@@ -1,0 +1,73 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'Barcode Host App'
+  ClientHeight = 80
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
+  object ToolBar1: TToolBar
+    Size.Width = 640.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object Label1: TLabel
+      Align = Client
+      StyledSettings = [Family]
+      Size.Width = 640.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 24.000000000000000000
+      TextSettings.FontColor = claBlue
+      TextSettings.HorzAlign = Center
+      Text = 'Barcode Host App'
+    end
+  end
+  object edtResult: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Client
+    TabOrder = 1
+    ReadOnly = True
+    Size.Width = 640.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
+    object ClearEditButton1: TClearEditButton
+      CanFocus = False
+      Cursor = crArrow
+      Size.Width = 28.000000000000000000
+      Size.Height = 36.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnClick = ClearEditButton1Click
+    end
+  end
+  object StyleBook1: TStyleBook
+    Styles = <
+      item
+      end>
+    Left = 304
+    Top = 24
+  end
+  object TetheringManager1: TTetheringManager
+    Text = 'TetheringManager1'
+    AllowedAdapters = 'Network'
+    Left = 48
+    Top = 12
+  end
+  object TetheringAppProfile1: TTetheringAppProfile
+    Manager = TetheringManager1
+    Text = 'TetheringAppProfile1'
+    Group = 'DataGroup'
+    Actions = <>
+    Resources = <
+      item
+        Name = 'Barcode'
+        IsPublic = True
+      end>
+    OnResourceReceived = TetheringAppProfile1ResourceReceived
+    Left = 168
+    Top = 12
+  end
+end
